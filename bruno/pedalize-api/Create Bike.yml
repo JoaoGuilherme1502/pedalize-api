@@ -1,0 +1,23 @@
+info:
+  name: Create Bike
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:3000/bikes
+  body:
+    type: json
+    data: |-
+      {
+        "model": "Caloi Elite",
+        "hourlyRate": 15,
+        "status": "AVAILABLE"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

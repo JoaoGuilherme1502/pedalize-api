@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String @id @default(uuid())
+  name      String
+  email     String @unique
+  balance   Decimal @default(0.0)
+
+  rentals Rental[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Bike {
+  
+  id         String @id @default(uuid())
+  model      String
+  brand      String
+  year       Int
+  hourlyRate Float
+  status     BikeStatus @default(AVAILABLE)
+
+  rentals Rental[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("bikes")
+}
+
+model Rental {
+  id     String @id @default(uuid())
+  userId String
+  bikeId String
+
+  startDate  DateTime @default(now())
+  endDate    DateTime?
+  totalPrice Decimal?
+  status     RentalStatus @default(ACTIVE)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bike Bike @relation(fields: [bikeId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("rentals")
+}
+
+enum BikeStatus {
+  AVAILABLE
+  IN_USE
+  MAINTENANCE
+}
+
+enum RentalStatus {
+  ACTIVE
+  FINISHED
+}
