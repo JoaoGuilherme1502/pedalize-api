@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { BikeService } from './bike.service';
 import { CreateBikeDto } from './dto/create-bike.dto';
 
@@ -14,5 +14,10 @@ export class BikeController {
     @Get()
     async findAll() {
         return this.bikeService.findAll();
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: string) {
+        return this.bikeService.findOne(id);
     }
 }
