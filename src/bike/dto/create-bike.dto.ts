@@ -29,13 +29,28 @@ export class CreateBikeDto {
     year: number
 
     @ApiProperty({
-        example: 6,
-        description: 'Valor hora para locar a bike'
+        example: 10,
+        description: 'Valor da diária'
     })
     @IsNumber()
     @IsPositive()
-    @IsNotEmpty()
-    hourlyRate: number
+    dailyRate: number
+
+    @ApiProperty({
+        example: 29,
+        description: 'Valor semanal'
+    })
+    @IsNumber()
+    @IsPositive()
+    weeklyRate: number;
+
+    @ApiProperty({
+        example: 49,
+        description: 'Valor mensal'
+    })
+    @IsNumber()
+    @IsPositive()
+    monthlyRate: number;
 }
 
 

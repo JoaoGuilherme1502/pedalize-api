@@ -4,15 +4,18 @@ info:
   seq: 1
 
 http:
-  method: GET
+  method: POST
   url: http://localhost:3000/bikes
   body:
     type: json
     data: |-
       {
-        "model": "Caloi Elite",
-        "hourlyRate": 15,
-        "status": "AVAILABLE"
+        "model": "Caloi Elite 2",
+        "brand": "Caloi",
+        "year": 2026,
+        "dailyRate": 10.99,
+        "weeklyRate": 29.99,
+        "monthlyRate": 49.99
       }
   auth: inherit
 
